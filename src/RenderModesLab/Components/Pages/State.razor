@@ -1,0 +1,19 @@
+@page "/state"
+
+<PageTitle>Persistent state</PageTitle>
+
+<h1>Prerendering and persistent state</h1>
+<p class="lead">
+    Interactive components are prerendered on the server, then started again in the browser. Without care, data loads twice
+    and the UI flickers. .NET 10's <code>[PersistentState]</code> attribute carries the prerendered value across.
+</p>
+<p class="text-muted">Reload this page and compare the two cards once they become interactive.</p>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <ForecastPanel @rendermode="InteractiveWebAssembly" />
+    </div>
+    <div class="col-md-6">
+        <PersistentForecastPanel @rendermode="InteractiveWebAssembly" />
+    </div>
+</div>

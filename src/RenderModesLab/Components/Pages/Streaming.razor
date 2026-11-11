@@ -1,0 +1,35 @@
+@page "/streaming"
+@attribute [StreamRendering]
+@inject IForecastProvider Provider
+
+<PageTitle>Streaming rendering</PageTitle>
+
+<h1>Streaming rendering</h1>
+<p class="lead">
+    A static page that sends its layout immediately, then streams the slow part into the same response when it is ready.
+    No WebSocket and no WebAssembly download are needed.
+</p>
+
+@if (_forecasts is null)
+{
+    <div class="alert alert-info" data-test="loading">Loading slow data (1.5 seconds)...</div>
+}
+else
+{
+    <ul class="list-group col-md-6" data-test="loaded">
+        @foreach (var f in _forecasts)
+        {
+            <li class="list-group-item">@f.TemperatureC &deg;C, generated on @f.GeneratedOn</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Forecast>? _forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1500);
+        _forecasts = Enumerable.Range(0, 3).Select(_ => Provider.GetForecast()).ToList();
+    }
+}

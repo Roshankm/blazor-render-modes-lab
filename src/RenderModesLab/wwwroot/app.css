@@ -1,0 +1,11 @@
+html, body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1:focus {
+    outline: none;
+}
+
+.probe dd {
+    font-weight: 600;
+}

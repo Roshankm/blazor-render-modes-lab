@@ -1,0 +1,30 @@
+<div class="card h-100">
+    <div class="card-body">
+        <h2 class="h6">@Title</h2>
+        @if (Forecast is null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <p class="display-6 mb-1">@Forecast.TemperatureC &deg;C</p>
+            <p class="small mb-2">
+                Generated on <strong data-test="generated-on">@Forecast.GeneratedOn</strong>
+                at @Forecast.GeneratedAt.ToString("HH:mm:ss.fff")
+            </p>
+            <p class="small text-muted mb-0">Rendering now: @RendererInfo.Name</p>
+        }
+        <p class="small text-muted mt-2 mb-0">@Note</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public Forecast? Forecast { get; set; }
+
+    [Parameter]
+    public string Note { get; set; } = string.Empty;
+}

@@ -1,0 +1,37 @@
+@page "/"
+
+<PageTitle>Compare render modes</PageTitle>
+
+<h1>Blazor render modes, side by side</h1>
+<p class="lead">
+    The same component rendered four ways on one page. The page itself is static; each card chooses its own render mode.
+    Reload the page and watch the cards: buttons enable as each one becomes interactive.
+</p>
+
+<div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+        <RenderModeProbe Title="Static server rendering" />
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <RenderModeProbe Title="Interactive Server" @rendermode="InteractiveServer" />
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <RenderModeProbe Title="Interactive WebAssembly" @rendermode="InteractiveWebAssembly" />
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <RenderModeProbe Title="Interactive Auto" @rendermode="InteractiveAuto" />
+    </div>
+</div>
+
+<h2 class="h4 mt-5">When to use which</h2>
+<table class="table table-sm">
+    <thead>
+        <tr><th>Mode</th><th>Runs on</th><th>Good for</th><th>Trade-off</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Static SSR</td><td>Server, once per request</td><td>Content pages, forms with enhanced posts, SEO</td><td>No click handlers</td></tr>
+        <tr><td>Interactive Server</td><td>Server, over a SignalR circuit</td><td>Line-of-business apps close to the database</td><td>Needs a live connection; server memory per user</td></tr>
+        <tr><td>Interactive WebAssembly</td><td>Browser</td><td>Offline-capable or very interactive UI</td><td>Larger first download; data must come over HTTP</td></tr>
+        <tr><td>Interactive Auto</td><td>Server first, then browser</td><td>Fast first load plus client-side speed later</td><td>Code must work in both places</td></tr>
+    </tbody>
+</table>

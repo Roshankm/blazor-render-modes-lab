@@ -1,0 +1,11 @@
+@* Loads data in OnInitialized with no persistence: the value is generated twice when prerendered. *@
+@inject IForecastProvider Provider
+
+<ForecastView Title="Without persisted state" Forecast="_forecast"
+              Note="Generated during prerender, then generated again when the component becomes interactive. Watch the value change." />
+
+@code {
+    private Forecast? _forecast;
+
+    protected override void OnInitialized() => _forecast = Provider.GetForecast();
+}

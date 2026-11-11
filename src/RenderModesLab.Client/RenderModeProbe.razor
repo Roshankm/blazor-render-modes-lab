@@ -1,0 +1,29 @@
+@* Shows how and where this component instance is running. Used with every render mode. *@
+
+<div class="card h-100 probe">
+    <div class="card-body">
+        <h2 class="h6">@Title</h2>
+        <dl class="row small mb-3">
+            <dt class="col-7">Renderer</dt>
+            <dd class="col-5" data-test="renderer">@RendererInfo.Name</dd>
+            <dt class="col-7">Interactive now</dt>
+            <dd class="col-5" data-test="interactive">@(RendererInfo.IsInteractive ? "Yes" : "No")</dd>
+            <dt class="col-7">Assigned render mode</dt>
+            <dd class="col-5" data-test="mode">@(AssignedRenderMode?.GetType().Name.Replace("RenderMode", "") ?? "None")</dd>
+            <dt class="col-7">Code running in browser</dt>
+            <dd class="col-5">@(OperatingSystem.IsBrowser() ? "Yes" : "No")</dd>
+        </dl>
+
+        @* Disabled until the component is interactive, so users can't click a button that does nothing. *@
+        <button class="btn btn-sm btn-primary" disabled="@(!RendererInfo.IsInteractive)" @onclick="() => _clicks++">
+            Clicked @_clicks @(_clicks == 1 ? "time" : "times")
+        </button>
+    </div>
+</div>
+
+@code {
+    private int _clicks;
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+}

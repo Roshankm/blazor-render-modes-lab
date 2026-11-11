@@ -1,0 +1,12 @@
+@* .NET 10 declarative persistent state: the prerendered value is serialized into the page and reused. *@
+@inject IForecastProvider Provider
+
+<ForecastView Title="With [PersistentState]" Forecast="Forecast"
+              Note="Generated once during prerender and restored when the component becomes interactive. No flicker, no second call." />
+
+@code {
+    [PersistentState]
+    public Forecast? Forecast { get; set; }
+
+    protected override void OnInitialized() => Forecast ??= Provider.GetForecast();
+}
